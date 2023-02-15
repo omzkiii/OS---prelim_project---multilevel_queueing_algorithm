@@ -1,24 +1,29 @@
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class run {
     public static void main(String[] args) throws InterruptedException {
-        Fcfs();
-    }
-    public static void Fcfs() throws InterruptedException{
-        Process process1 = new Process();
-        process1.getProcessInfo(7,"Process 1");
-        process1.start();
-        process1.join();
-        Process process2 = new Process();
-        process2.getProcessInfo(3,"Process 2");
-        process2.start();
-        process2.join();
-        Process process3 = new Process();
-        process3.getProcessInfo(2,"Process 3");
-        process3.start();
-        process3.join();
-        Process process4 = new Process();
-        process4.getProcessInfo(5,"Process 4");
-        process4.start();
-        process4.join();
+    	Scanner in = new Scanner(System.in);
+    	ArrayList<Process> processList = new ArrayList<>();
+        fcfs.runFcfs(processList);
+        System.out.println("Enter process number: ");
+        int processNum = in.nextInt();
+        
+        for(int i = 1; i <= processNum; i++) {
+        	System.out.println("Enter burst time of Process " + i + ": ");
+        	int burstProcess = in.nextInt();
+        	Process process = new Process();
+        	process.getProcessInfo(burstProcess, "Process " + i);
+        	processList.add(process);
+        }
+        for (int i=0; i<processList.size(); i++) {
+        	Process outstring = processList.get(i);
+        	System.out.println("Name: "+outstring.processName + " BT: " + outstring.burstTime);
+        	}
+        
+        
+        //run FCFS
+        
+        fcfs.runFcfs(processList);
     }
 }
