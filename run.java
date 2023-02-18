@@ -16,10 +16,7 @@ public class run {
         	processList.add(process);
         }
         
-        
-        
-        //run FCFS
-        
-        fcfs.runFcfs(processList);
+        //run SJF
+        sjf.runSjf(processList);
     }
 }
