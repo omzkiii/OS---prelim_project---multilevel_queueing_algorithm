@@ -15,8 +15,14 @@ public class sjf {
             }  
             sortedProcess.set(i+1, key);  
         }
-        for(int i = 0; i < sortedProcess.size(); i++) {
-			sortedProcess.get(i).run();
+        for(int i = 0; i < processList.size(); i++) {
+			int j = 1;
+			while (j<=processList.get(i).burstTime){
+					System.out.println(processList.get(i).processName + ": "  + j + "/" + processList.get(i).burstTime);
+				    processList.get(i).run();
+					j++;
+				}
+				System.out.println(processList.get(i).processName + " completed!");
 		}
 
         Process.setTime(sortedProcess);

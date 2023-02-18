@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class run {
+    public static int quantum = 2;
     public static void main(String[] args) throws InterruptedException {
     	Scanner in = new Scanner(System.in);
     	ArrayList<Process> processList = new ArrayList<>();
@@ -17,6 +18,7 @@ public class run {
         }
         
         //run SJF
-        sjf.runSjf(processList);
+        rr.runRr(processList, quantum);
+        //fcfs.runFcfs(processList);
     }
 }
