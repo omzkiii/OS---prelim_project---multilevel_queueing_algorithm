@@ -2,9 +2,13 @@ public class Process extends Thread{
     public int burstTime;
     public String processName;
     public int i=1;
+    public int startTime;
+    public int endTime;
     public void getProcessInfo(int burstTime, String processName){
         this.burstTime = burstTime;
         this.processName = processName;
+        startTime = 0;
+        endTime = burstTime;
     }
     @Override
     public void run(){
@@ -18,8 +22,5 @@ public class Process extends Thread{
             i++;
         }
         System.out.println(processName + " completed!");
-    }
-    public String returnInfo() {
-    	return processName;
     }
 }
