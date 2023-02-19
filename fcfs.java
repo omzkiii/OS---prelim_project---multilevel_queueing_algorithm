@@ -3,17 +3,22 @@ import java.util.ArrayList;
 public class fcfs {
 	public static void runFcfs(ArrayList<Process> processList){
 
-		for(int i = 0; i < processList.size(); i++) {
+		// PROCESS EXECUTION
+		int time = 0;
+        for(int i = 0; i < processList.size(); i++) {
 			int j = 1;
+			processList.get(i).startTime = time;
 			while (j<=processList.get(i).burstTime){
 					System.out.println(processList.get(i).processName + ": "  + j + "/" + processList.get(i).burstTime);
+                    time = time + 1;
 				    processList.get(i).run();
 					j++;
 				}
-				System.out.println(processList.get(i).processName + " completed!");
+				System.out.println(processList.get(i).processName + " completed at " + time + " second/s.");
+                processList.get(i).endTime = time;
 		}
 
-		Process.setTime(processList);
+		//Process.setTime(processList);
 		Process.printTime(processList);
 	}
 	

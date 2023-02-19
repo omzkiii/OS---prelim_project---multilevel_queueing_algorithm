@@ -3,17 +3,32 @@ import java.util.ArrayList;
 public class rr {
     public static  void runRr(ArrayList<Process> processList, int quantum) throws InterruptedException{
 		int counter = 0;
-        while(processList.get(counter).remaining > 0) {
-			if(processList.get(counter).remaining<quantum){
-				int j = processList.get(counter).remaining;
+		int time = 0;
+		int processDone = 0;
+		int processStarted = 0;
+        while(processList.get(counter).remaining >= 0 && processDone < processList.size()) {
+			processStarted = processStarted + 1;
+			if(processStarted <= processList.size())
+				processList.get(counter).startTime = time;
+			if(processList.get(counter).remaining == 0){
+				if(counter < processList.size()-1)
+						counter ++;
+					else
+						counter = 0;
+			}
+			else if(processList.get(counter).remaining<=quantum){
+				int j = processList.get(counter).timeDone;
 				while (j<=processList.get(counter).remaining){
-						int k = (processList.get(counter).burstTime - processList.get(counter).remaining) + j;
-						System.out.println(processList.get(counter).processName + ": "  + k + "/" + processList.get(counter).burstTime);
+						System.out.println(processList.get(counter).processName + ": "  + processList.get(counter).timeDone + "/" + processList.get(counter).burstTime);
+						time = time + 1;
+						processList.get(counter).timeDone = processList.get(counter).timeDone + 1;
 						processList.get(counter).run();
 						j++;
 					}
 					processList.get(counter).remaining = 0;
-					System.out.println(processList.get(counter).processName + " completed!");
+					processList.get(counter).endTime = time;
+					System.out.println(processList.get(counter).processName + " completed at " + time + " second/s.");
+					processDone = processDone + 1;
 
 					if(counter < processList.size()-1)
 						counter ++;
@@ -23,8 +38,9 @@ public class rr {
 			else{
 			int j = 1;
 				while (j<=quantum){
-					int k = (processList.get(counter).burstTime - processList.get(counter).remaining) + j;
-						System.out.println(processList.get(counter).processName + ": "  + k + "/" + processList.get(counter).burstTime);
+						System.out.println(processList.get(counter).processName + ": "  + processList.get(counter).timeDone + "/" + processList.get(counter).burstTime);
+						time = time + 1;
+						processList.get(counter).timeDone = processList.get(counter).timeDone + 1;
 						processList.get(counter).run();
 						j++;
 					}
@@ -35,11 +51,7 @@ public class rr {
 					else
 						counter = 0;
 			}
-
-			
 		}
-    }
-    public void runProcess(){
-        
+		Process.printTime(processList);
     }
 }

@@ -17,8 +17,9 @@ public class run {
         	processList.add(process);
         }
         
-        //run SJF
+        
         rr.runRr(processList, quantum);
+        //sjf.runSjf(processList);
         //fcfs.runFcfs(processList);
     }
 }
