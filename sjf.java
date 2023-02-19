@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class sjf {
+    public static float awt;
+	public static float att;
     public static void runSjf(ArrayList<Process> processList){
         ArrayList<Process> sortedProcess = new ArrayList<>();
         sortedProcess = processList;
@@ -32,6 +34,9 @@ public class sjf {
 		}
 
         //Process.setTime(sortedProcess);
-        Process.printTime(sortedProcess);
+        float[] arr = new float[2];
+		arr = Process.printTime(processList);
+		awt = arr[0];
+		att = arr[1];
     }
 }

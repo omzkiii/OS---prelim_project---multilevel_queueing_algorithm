@@ -1,6 +1,7 @@
 import java.util.ArrayList;
-
 public class rr {
+	public static float awt;
+	public static float att;
     public static  void runRr(ArrayList<Process> processList, int quantum) throws InterruptedException{
 		int counter = 0;
 		int time = 0;
@@ -8,8 +9,8 @@ public class rr {
 		int processStarted = 0;
         while(processList.get(counter).remaining >= 0 && processDone < processList.size()) {
 			processStarted = processStarted + 1;
-			if(processStarted <= processList.size())
-				processList.get(counter).startTime = time;
+			// if(processStarted <= processList.size())
+			// 	processList.get(counter).startTime = time;
 			if(processList.get(counter).remaining == 0){
 				if(counter < processList.size()-1)
 						counter ++;
@@ -18,7 +19,8 @@ public class rr {
 			}
 			else if(processList.get(counter).remaining<=quantum){
 				int j = processList.get(counter).timeDone;
-				while (j<=processList.get(counter).remaining){
+				processList.get(counter).startTime = time;
+				while (j<=processList.get(counter).burstTime){
 						System.out.println(processList.get(counter).processName + ": "  + processList.get(counter).timeDone + "/" + processList.get(counter).burstTime);
 						time = time + 1;
 						processList.get(counter).timeDone = processList.get(counter).timeDone + 1;
@@ -44,6 +46,7 @@ public class rr {
 						processList.get(counter).run();
 						j++;
 					}
+					processList.get(counter).partial = processList.get(counter).partial + quantum;
 					processList.get(counter).remaining = processList.get(counter).remaining - quantum;
 
 					if(counter < processList.size()-1)
@@ -52,6 +55,10 @@ public class rr {
 						counter = 0;
 			}
 		}
-		Process.printTime(processList);
+		float[] arr = new float[2];
+		arr = Process.printTime(processList);
+		awt = arr[0];
+		att = arr[1];
+		
     }
 }

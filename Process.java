@@ -8,6 +8,7 @@ public class Process extends Thread{
     public int endTime;
     public int remaining;
     public int timeDone = 1;
+    public int partial = 0;
 
     public void getProcessInfo(int burstTime, String processName){
         this.burstTime = burstTime;
@@ -20,7 +21,7 @@ public class Process extends Thread{
     @Override
     public void run(){
         try {
-            sleep(500);
+            sleep(200);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -33,16 +34,30 @@ public class Process extends Thread{
 	// 	}
     // }
 
-    public static void printTime(ArrayList<Process> processList){
+    public static float[] printTime(ArrayList<Process> processList){
+        float totalWt = 0;
+        float totalTt = 0;
+        float awt;
+        float att;
         for (int i=0; i<processList.size(); i++) {
         	Process outstring = processList.get(i);
-        	System.out.println("\nName: "+outstring.processName + " BT: " + outstring.burstTime  + " ST: " + outstring.startTime  + " ET: " + outstring.endTime);
-        	}
-    }
-    public static boolean quantumChecker(int c){
-        if(c == run.quantum){
-            return true;
+            int waitingTime = outstring.startTime - outstring.partial;
+            int turnaroundTime = outstring.endTime - outstring.partial;
+        	System.out.println("\n" + outstring.processName);
+            System.out.println("    Burst Time: " + outstring.burstTime  + " Waiting Time: " + waitingTime  + " Completion Time: " + turnaroundTime);
+            totalWt = totalWt + waitingTime;
+            totalTt = totalTt + turnaroundTime;
+            
         }
-        return false;
+        awt = totalWt/processList.size();
+        att = totalTt/processList.size();
+        //System.out.println("\nAverage Waiting time " + awt + " Average Turnaround Time " + att);
+        float[] overAll = new float[2];
+        overAll[0] = awt;
+        overAll[1] = att;
+        return overAll;
+        
+
     }
+    
 }

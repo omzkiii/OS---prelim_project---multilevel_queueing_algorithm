@@ -39,12 +39,21 @@ public class run {
         for(int i = 0; i < processList.size();i++){
             processStack.push(processList.get(i));
         }
+
+        if(!processStack.isEmpty()){
         for(int i = 0; i < Math.ceil(batchSize); i++)
             processBatch1.add(processStack.pop());
+        }
+
+        if(!processStack.isEmpty()){
         for(int i = 0; i < Math.ceil(batchSize); i++)
             processBatch2.add(processStack.pop());
+        }
+
+        if(!processStack.isEmpty()){
         for(int i = 0; i <= processStack.size(); i++)
             processBatch3.add(processStack.pop());
+        }
 
         System.out.println("BATCH SIZE: " + batchSize);
 
@@ -55,6 +64,15 @@ public class run {
         System.out.println("\n-----FIRST COME FIRST SERVE-----");
         fcfs.runFcfs(processBatch3);
         
-        System.out.println("\n=========================================");
+
+        System.out.println("\n=============================== OVERALL ===============================");
+        System.out.println("BATCH 1     Average Waiting Time:  " + rr.awt + " Average Turnaround Time: " + rr.att);
+        System.out.println("BATCH 2     Average Waiting Time:  " + sjf.awt + " Average Turnaround Time: " + sjf.att);
+        System.out.println("BATCH 3     Average Waiting Time:  " + fcfs.awt + " Average Turnaround Time: " + fcfs.att);
+        float overAllAwt = (rr.awt + sjf.awt + fcfs.awt)/3;
+        float overAllAtt = (rr.att + sjf.att + fcfs.att)/3;
+        System.out.println("\nOverall Average Waiting Time: " + overAllAwt);
+        System.out.println("\nOverall Average Turnaround Time: " + overAllAtt);
+
     }
 }

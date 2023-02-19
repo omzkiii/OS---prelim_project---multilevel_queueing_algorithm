@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 
 public class fcfs {
+	public static float awt;
+	public static float att;
 	public static void runFcfs(ArrayList<Process> processList){
 
 		// PROCESS EXECUTION
@@ -19,7 +21,9 @@ public class fcfs {
 		}
 
 		//Process.setTime(processList);
-		Process.printTime(processList);
+		float[] arr = new float[2];
+		arr = Process.printTime(processList);
+		awt = arr[0];
+		att = arr[1];
 	}
-	
 }
